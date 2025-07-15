@@ -10,20 +10,21 @@
       padding: 0;
       font-family: sans-serif;
       background-image: url('suburi.png'); /* update with your image path */
-      background-size: auto 80vh;
-      /* background-position: right bottom; */
+      background-size: 50vw auto;
+      /* background-position: middle middle; */
       /* background-repeat: no-repeat; */
       /* position: relative; */
       background-repeat: repeat-x;
       /* background-size: cover; */
+      background-attachment: fixed;
       animation: slideBackground 20s linear infinite;
     }
     @keyframes slideBackground {
        0% {
-       background-position: 0% 0%;
+       background-position: 0% 30%;
        }
         100% {
-        background-position: 100% 0%;
+        background-position: 100% 30%;
         }
     }    
 
@@ -118,7 +119,7 @@
         <input type="text" name="bogu_bag_make" id="bogu_bag_make" placeholder="e.g. Kanmuri, e-Bogu, Bushizo, etc." />
         
         <label for="bogu_bag_comments">Comments about your bogu bag (optional)</label>
-        <textarea name="bogu_bag_comments" id="bogu_bag_comments" rows="4" placeholder="Brand, pros, cons, materials, etc."></textarea>
+        <textarea name="bogu_bag_comments" id="bogu_bag_comments" rows="4" placeholder="Pros, cons, size, materials, etc."></textarea>
         
         <input type="hidden" name="_redirect" value="https://www.klayonstudio.com/submissionConfirmation.html" />
       
