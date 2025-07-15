@@ -1,43 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sign Up</title>
+  <meta charset="UTF-8" />
+  <title>Kendo Suburi Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      background-color: #0f0f0f;
-      color: white;
-      font-family: sans-serif;
+      background-color: #ffffff;
+      color: #111;
+      font-family: 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
       display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
+      align-items: flex-start;
+      min-height: 100vh;
     }
+
     form {
+      max-width: 400px;
+      width: 90%;
+      margin-top: 40px;
       display: flex;
       flex-direction: column;
-      width: 300px;
     }
-    input, textarea {
-      margin: 10px 0;
-      padding: 10px;
-      font-size: 1em;
-    }
-    button {
-      padding: 10px;
+
+    label {
+      margin-bottom: 12px;
       font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    input, textarea {
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #333;
     }
   </style>
 </head>
-<body>
-  <h1>Join the waitlist</h1>
   <!-- <form action="https://formspree.io/f/xzzvbpzd" method="POST"> -->
-  <form action="https://httpbin.org/post" method="POST" target="_blank">
-    <input type="hidden" name="_redirect" value="https://www.klayonstudio.com/submissionConfirmation.html">
-    <input type="email" name="email" placeholder="Your email" required>
-    <textarea name="note" placeholder="Why are you interested? (optional)"></textarea>
+<body>
+  <form action="https://httpbin.org/post" method="POST" target="_blank">    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required />
+
+    <label for="instagram">Instagram Handle (optional)</label>
+    <input type="text" name="instagram" id="instagram" placeholder="@yourhandle" />
+
+    <label for="rank">Kendo Rank (e.g. 3-dan, 1-kyu)</label>
+    <input type="text" name="rank" id="rank" required />
+
+    <label for="dojo">Dojo Name</label>
+    <input type="text" name="dojo" id="dojo" required />
+
+    <label for="years">Years of Kendo Practice</label>
+    <input type="number" name="years" id="years" min="0" max="99" required />
+
+    <label for="bogu_bag_cost">How much did you spend on your bogu bag (USD)?</label>
+    <input type="number" name="bogu_bag_cost" id="bogu_bag_cost" min="0" required />
+
+    <label for="bogu_bag_comments">Comments about your bogu bag (optional)</label>
+    <textarea name="bogu_bag_comments" id="bogu_bag_comments" rows="4" placeholder="Brand, pros, cons, etc."></textarea>
+
+    <input type="hidden" name="_redirect" value="https://www.klayonstudio.com/submissionConfirmation.html" />
+
     <button type="submit">Submit</button>
   </form>
 </body>
 </html>
+
