@@ -27,6 +27,14 @@
         background-position: 100% 30%;
         }
     }    
+    select {
+        width: 100%;
+        padding: 0.5rem;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
 
     .suburi-type-section .instructions {
         font-size: 0.95rem;
@@ -146,9 +154,32 @@
         <label for="instagram">Instagram Handle (optional)</label>
         <input type="text" name="instagram" id="instagram" placeholder="@yourhandle" />
       
-        <label for="rank">Kendo Rank (e.g. 3-dan, 1-kyu)</label>
-        <input type="text" name="rank" id="rank" required />
-      
+        <label for="rank">Rank:</label>
+        <select id="rank" name="rank" required>
+          <option value="" disabled selected>Select your rank</option>
+          <optgroup label="Kyu Ranks">
+            <option value="9Kyu">9 Kyu</option>
+            <option value="8Kyu">8 Kyu</option>
+            <option value="7Kyu">7 Kyu</option>
+            <option value="6Kyu">6 Kyu</option>
+            <option value="5Kyu">5 Kyu</option>
+            <option value="4Kyu">4 Kyu</option>
+            <option value="3Kyu">3 Kyu</option>
+            <option value="2Kyu">2 Kyu</option>
+            <option value="1Kyu">1 Kyu</option>
+          </optgroup>
+          <optgroup label="Dan Ranks">
+            <option value="1Dan">1 Dan</option>
+            <option value="2Dan">2 Dan</option>
+            <option value="3Dan">3 Dan</option>
+            <option value="4Dan">4 Dan</option>
+            <option value="5Dan">5 Dan</option>
+            <option value="6Dan">6 Dan</option>
+            <option value="7Dan">7 Dan</option>
+            <option value="8Dan">8 Dan</option>
+          </optgroup>
+        </select>
+
         <label for="dojo">Dojo Name</label>
         <input type="text" name="dojo" id="dojo" required />
       
@@ -193,7 +224,7 @@
             </div>
             
             <p id="type-result" class="type-output" style="display:none;">
-            Your Suburi Type: <strong id="suburi-type-code">----</strong>
+            Your Kendoka/Suburi Type: <strong id="suburi-type-code">----</strong>
             </p>
 
         </div>
