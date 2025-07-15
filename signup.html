@@ -160,43 +160,43 @@
             <h3>Kendoka Style Typology</h3>
             <p class="instructions">Choose one style from each pair that best describes your suburi or kendo training style.</p>
 
-          
             <div class="toggle-group">
-              <span>Power vs. Precision</span><br>
-              <input type="radio" id="power" name="style_power_precision" value="P" required>
-              <label for="power">Power</label>
-              <input type="radio" id="precision" name="style_power_precision" value="R">
-              <label for="precision">Precision</label>
-            </div>
-          
-            <div class="toggle-group">
-              <span>Rhythm vs. Burst</span><br>
-              <input type="radio" id="rhythm" name="style_rhythm_burst" value="M" required>
-              <label for="rhythm">Rhythm</label>
-              <input type="radio" id="burst" name="style_rhythm_burst" value="B">
-              <label for="burst">Burst</label>
-            </div>
-          
-            <div class="toggle-group">
-              <span>Flow vs. Structure</span><br>
-              <input type="radio" id="flow" name="style_flow_structure" value="F" required>
-              <label for="flow">Flow</label>
-              <input type="radio" id="structure" name="style_flow_structure" value="S">
-              <label for="structure">Structure</label>
-            </div>
-          
-            <div class="toggle-group">
-                <span>Introspective vs. Observant</span><br>
-                <input type="radio" id="introspective" name="style_introspective_observer" value="I" required>
-                <label for="introspective">Introspective</label>
-                <input type="radio" id="observant" name="style_introspective_observer" value="O">
+                <span>Focus Style (E / I)</span><br>
+                <input type="radio" id="observant" name="style_focus" value="E" required>
                 <label for="observant">Observant</label>
+                <input type="radio" id="introspective" name="style_focus" value="I">
+                <label for="introspective">Introspective</label>
             </div>
+        
+            <div class="toggle-group">
+            <span>Swing Feel (N / S)</span><br>
+            <input type="radio" id="natural" name="style_swing" value="N" required>
+            <label for="natural">Natural Flow</label>
+            <input type="radio" id="structured" name="style_swing" value="S">
+            <label for="structured">Structured</label>
+            </div>
+        
+            <div class="toggle-group">
+            <span>Strike Tempo (F / T)</span><br>
+            <input type="radio" id="flow" name="style_tempo" value="F" required>
+            <label for="flow">Rhythmic Flow</label>
+            <input type="radio" id="burst" name="style_tempo" value="T">
+            <label for="burst">Explosive Burst</label>
+            </div>
+        
+            <div class="toggle-group">
+            <span>Execution Method (P / J)</span><br>
+            <input type="radio" id="power" name="style_exec" value="P" required>
+            <label for="power">Power</label>
+            <input type="radio" id="precision" name="style_exec" value="J">
+            <label for="precision">Precision</label>
+            </div>
+            
             <p id="type-result" class="type-output" style="display:none;">
-                Your Suburi Type: <strong id="suburi-type-code">----</strong>
-              </p>
-                
-          </div>
+            Your Suburi Type: <strong id="suburi-type-code">----</strong>
+            </p>
+
+        </div>
           
           
 
@@ -223,10 +223,10 @@
       
         function updateType() {
           const categories = [
-            'style_power_precision',
-            'style_rhythm_burst',
-            'style_flow_structure',
-            'style_introspective_observer'
+            'style_focus',
+            'style_swing',
+            'style_tempo',
+            'style_exec'
           ];
           let code = '';
           for (const cat of categories) {
