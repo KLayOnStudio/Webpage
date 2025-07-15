@@ -59,32 +59,45 @@
   </style>
 </head>
   <!-- <form action="https://formspree.io/f/xzzvbpzd" method="POST"> -->
+  <!--form action="https://httpbin.org/post" method="POST" target="_blank">    <label for="email">Email</label> -->
+
 <body>
-  <form action="https://httpbin.org/post" method="POST" target="_blank">    <label for="email">Email</label>
-    <input type="email" name="email" id="email" required />
-
-    <label for="instagram">Instagram Handle (optional)</label>
-    <input type="text" name="instagram" id="instagram" placeholder="@yourhandle" />
-
-    <label for="rank">Kendo Rank (e.g. 3-dan, 1-kyu)</label>
-    <input type="text" name="rank" id="rank" required />
-
-    <label for="dojo">Dojo Name</label>
-    <input type="text" name="dojo" id="dojo" required />
-
-    <label for="years">Years of Kendo Practice</label>
-    <input type="number" name="years" id="years" min="0" max="99" required />
-
-    <label for="bogu_bag_cost">How much did you spend on your bogu bag (USD)?</label>
-    <input type="number" name="bogu_bag_cost" id="bogu_bag_cost" min="0" required />
-
-    <label for="bogu_bag_comments">Comments about your bogu bag (optional)</label>
-    <textarea name="bogu_bag_comments" id="bogu_bag_comments" rows="4" placeholder="Brand, pros, cons, etc."></textarea>
-
-    <input type="hidden" name="_redirect" value="https://www.klayonstudio.com/submissionConfirmation.html" />
-
-    <button type="submit">Submit</button>
-  </form>
+    <form action="https://httpbin.org/post" method="POST" target="_blank"> 
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required />
+      
+        <label for="code">Participant Code</label>
+        <input type="text" name="code" id="code" required placeholder="e.g. SBR0423" />
+      
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+      
+        <label for="instagram">Instagram Handle (optional)</label>
+        <input type="text" name="instagram" id="instagram" placeholder="@yourhandle" />
+      
+        <label for="rank">Kendo Rank (e.g. 3-dan, 1-kyu)</label>
+        <input type="text" name="rank" id="rank" required />
+      
+        <label for="dojo">Dojo Name</label>
+        <input type="text" name="dojo" id="dojo" required />
+      
+        <label for="years">Years of Kendo Practice</label>
+        <input type="number" name="years" id="years" min="0" max="99" required />
+      
+        <label for="bogu_bag_cost">How much did you spend on your bogu bag (USD)?</label>
+        <input type="number" name="bogu_bag_cost" id="bogu_bag_cost" min="0" required />
+        
+        <label for="bogu_bag_make">Brand or Make of Bogu Bag (if known)</label>
+        <input type="text" name="bogu_bag_make" id="bogu_bag_make" placeholder="e.g. Nishijin, Adidas, custom, etc." />
+        
+        <label for="bogu_bag_comments">Comments about your bogu bag (optional)</label>
+        <textarea name="bogu_bag_comments" id="bogu_bag_comments" rows="4" placeholder="Brand, pros, cons, materials, etc."></textarea>
+        
+        <input type="hidden" name="_redirect" value="https://www.klayonstudio.com/submissionConfirmation.html" />
+      
+        <button type="submit">Submit</button>
+      </form>
+      
 </body>
 </html>
 
