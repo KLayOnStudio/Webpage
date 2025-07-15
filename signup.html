@@ -6,23 +6,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     body {
-      background-color: #ffffff;
-      color: #111;
-      font-family: 'Helvetica Neue', sans-serif;
       margin: 0;
       padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
+      font-family: sans-serif;
+      background-image: url('Kendoka.png'); /* update with your image path */
+      background-size: 90% 80%;
+      background-position: right bottom;
+      background-repeat: no-repeat;
+      position: relative;
     }
 
+    .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.85); /* white overlay with opacity */
+  z-index: 0;
+}
+
     form {
-      max-width: 400px;
-      width: 90%;
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
+        position: relative;
+        z-index: 1;
+        max-width: 400px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0); /* white with opacity */
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        backdrop-filter: blur(1px); /* optional: adds a nice frosted-glass effect */
     }
 
     label {
@@ -88,7 +101,7 @@
         <input type="number" name="bogu_bag_cost" id="bogu_bag_cost" min="0" required />
         
         <label for="bogu_bag_make">Brand or Make of Bogu Bag (if known)</label>
-        <input type="text" name="bogu_bag_make" id="bogu_bag_make" placeholder="e.g. Nishijin, Adidas, custom, etc." />
+        <input type="text" name="bogu_bag_make" id="bogu_bag_make" placeholder="e.g. Kanmuri, e-Bogu, Bushizo, etc." />
         
         <label for="bogu_bag_comments">Comments about your bogu bag (optional)</label>
         <textarea name="bogu_bag_comments" id="bogu_bag_comments" rows="4" placeholder="Brand, pros, cons, materials, etc."></textarea>

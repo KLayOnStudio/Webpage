@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Your Game Name</title>
+  <title>KLAYON </title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -25,7 +25,7 @@
     button {
       margin-top: 20px;
       padding: 12px 24px;
-      background-color: #a5d77d;
+      background-color: #ddd;
       border: none;
       color: #ffffff;
       font-weight: bold;
@@ -33,13 +33,26 @@
       cursor: pointer;
     }
     button:hover {
-      background-color: #ddd;
+      background-color: #a5d77d;
     }
   </style>
 </head>
 <body>
-  <img src="logo.gif" alt="Logo">
+    <img id="gif" src="logo_full.gif" alt="Intro Animation" />
+  
+    <script>
+      // Replace with the actual length of your first gif in milliseconds
+      const duration = 18000; // e.g. 30 secs
+  
+      setTimeout(() => {
+        const gif = document.getElementById('gif');
+        gif.src = "logo_loop.gif";
+      }, duration);
+    </script>
+    <button onclick="window.location.href='signup.html'">Join</button>
+  </body>
+<!-- <body>
+  <img src="logo_full.gif" alt="Logo">
   <h1>Something is waking up...</h1>
-  <button onclick="window.location.href='signup.html'">Join</button>
-</body>
+</body> -->
 </html>
