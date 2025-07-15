@@ -9,12 +9,24 @@
       margin: 0;
       padding: 0;
       font-family: sans-serif;
-      background-image: url('Kendoka.png'); /* update with your image path */
-      background-size: 90% 80%;
-      background-position: right bottom;
-      background-repeat: no-repeat;
-      position: relative;
+      background-image: url('suburi.png'); /* update with your image path */
+      background-size: auto 80vh;
+      /* background-position: right bottom; */
+      /* background-repeat: no-repeat; */
+      /* position: relative; */
+      background-repeat: repeat-x;
+      /* background-size: cover; */
+      animation: slideBackground 20s linear infinite;
     }
+    @keyframes slideBackground {
+       0% {
+       background-position: 0% 0%;
+       }
+        100% {
+        background-position: 100% 0%;
+        }
+    }    
+
 
     .overlay {
   position: fixed;
@@ -32,9 +44,9 @@
         max-width: 400px;
         margin: 40px auto;
         padding: 20px;
-        background-color: rgba(255, 255, 255, 0); /* white with opacity */
+        background-color: rgba(255, 255, 255, 0.8); /* white with opacity */
         border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        box-shadow: 0 0 20px rgba(0,0,0,0.9);
         backdrop-filter: blur(1px); /* optional: adds a nice frosted-glass effect */
     }
 
@@ -69,6 +81,8 @@
     button:hover {
       background-color: #333;
     }
+
+
   </style>
 </head>
   <!-- <form action="https://formspree.io/f/xzzvbpzd" method="POST"> -->
@@ -98,8 +112,8 @@
         <input type="number" name="years" id="years" min="0" max="99" required />
       
         <label for="bogu_bag_cost">How much did you spend on your bogu bag (USD)?</label>
-        <input type="number" name="bogu_bag_cost" id="bogu_bag_cost" min="0" required />
-        
+        <input type="number" name="bogu_bag_cost" id="bogu_bag_cost" min="0" step="10"  />
+
         <label for="bogu_bag_make">Brand or Make of Bogu Bag (if known)</label>
         <input type="text" name="bogu_bag_make" id="bogu_bag_make" placeholder="e.g. Kanmuri, e-Bogu, Bushizo, etc." />
         
