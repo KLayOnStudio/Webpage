@@ -2,28 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>KLAYON </title>
+  <title>KLAYON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: sans-serif;
-      background-color:  #ffffff;
-      ;
-      color: white;
+      background-color: #ffffff;
+      color: #333;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
       text-align: center;
+      min-height: 100vh;
     }
+
     img {
-        max-width: 400px;
-        margin-bottom: 40px;    }
+      max-width: 400px;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .wireframe-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 60px; /* creates space between Join button and thumbnail */
+    }
+
+    .wireframe-thumb {
+      width: 300px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .wireframe-thumb:hover {
+      transform: scale(1.03);
+    }
+
     button {
-      margin-top: 20px;
       padding: 12px 24px;
       background-color: #a4e1b8;
       border: none;
@@ -31,28 +58,67 @@
       font-weight: bold;
       font-size: 1em;
       cursor: pointer;
+      border-radius: 8px; /* ← adds smooth curves */
     }
+
     button:hover {
       background-color: #9774dd;
     }
+    .lookbook-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lookbook-thumb {
+      width: 300px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      margin-bottom: 12px;
+    }
+
+    .lookbook-thumb:hover {
+      transform: scale(1.03);
+    }
+
   </style>
 </head>
 <body>
-    <img id="gif" src="logo_full.gif" alt="Intro Animation" />
-  
-    <script>
-      // Replace with the actual length of your first gif in milliseconds
-      const duration = 18000; // e.g. 30 secs
-  
-      setTimeout(() => {
-        const gif = document.getElementById('gif');
-        gif.src = "logo_loop.gif";
-      }, duration);
-    </script>
-    <button onclick="window.location.href='signup.html'">Join</button>
-  </body>
-<!-- <body>
-  <img src="logo_full.gif" alt="Logo">
-  <h1>Something is waking up...</h1>
-</body> -->
+  <img id="gif" src="logo_full.gif" alt="Intro Animation" />
+
+  <script>
+    const duration = 18000; // Adjust if needed
+    setTimeout(() => {
+      const gif = document.getElementById('gif');
+      gif.src = "logo_loop.gif";
+    }, duration);
+  </script>
+
+  <!-- Signup button -->
+  <div class="buttons">
+    <button onclick="window.location.href='signup.html'">Join the Suburi Project</button>
+  </div>
+  <!-- Wireframe thumbnail + button -->
+  <div class="wireframe-section">
+    <a href="https://www.figma.com/proto/95LKDoH1jq2H8SJlAxOElE/suburiApp?node-id=0-1&t=SCZ4z76lrKVhDZSh-1" target="_blank">
+      <img class="wireframe-thumb" src="DojoGoStartPage.png" alt="Figma Wireframe Thumbnail">
+    </a>
+    <a href="https://www.figma.com/proto/95LKDoH1jq2H8SJlAxOElE/suburiApp?node-id=0-1&t=SCZ4z76lrKVhDZSh-1" target="_blank">
+      <button>View App Wireframe</button>
+    </a>
+  </div>
+<!-- Lookbook thumbnail + button -->
+<div class="lookbook-section" style="margin-top: 60px;">
+  <a href="kikentailookbook.html" target="_blank">
+    <img class="lookbook-thumb" src="Kikentai/skullhoodie2.JPEG" alt="Kikentai Lookbook Thumbnail" />
+  </a>
+  <a href="kikentailookbook.html" target="_blank">
+    <button> 着剣体</button>
+  </a>
+</div>
+
+
+</body>
 </html>
