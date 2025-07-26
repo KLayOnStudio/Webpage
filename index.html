@@ -96,6 +96,9 @@
     }, duration);
   </script>
 
+
+
+
   <!-- Signup button -->
   <div class="buttons">
     <button onclick="window.location.href='signup.html'">Join the Suburi Project</button>
@@ -112,12 +115,36 @@
 <!-- Lookbook thumbnail + button -->
 <div class="lookbook-section" style="margin-top: 60px;">
   <a href="kikentailookbook.html" target="_blank">
-    <img class="lookbook-thumb" src="Kikentai/skullhoodie2.JPEG" alt="Kikentai Lookbook Thumbnail" />
+    <img id="lookbook-thumb" class="lookbook-thumb" src="Kikentai/skullhoodie2.JPEG" alt="Kikentai Lookbook Thumbnail" />
   </a>
   <a href="kikentailookbook.html" target="_blank">
     <button> 着剣体</button>
   </a>
 </div>
+
+
+<script>
+  const lookbookImages = [
+    "Kikentai/Basuquiat1.JPEG",
+    "Kikentai/Basuquiat2.JPEG",
+    "Kikentai/Basuquiat3.JPEG",
+    "Kikentai/Basuquiat4.JPEG",
+    "Kikentai/skullhoodie1.JPEG",
+    "Kikentai/skullhoodie2.JPEG",
+    "Kikentai/skullhoodie3.JPEG",
+    "Kikentai/skullhoodie4.JPEG",
+    "Kikentai/Wristband1.JPG",
+    "Kikentai/Wristband2.JPG",
+    "Kikentai/Wristband3.JPG"
+  ];
+  let currentIndex = 0;
+  const lookbookThumb = document.getElementById('lookbook-thumb');
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % lookbookImages.length;
+    lookbookThumb.src = lookbookImages[currentIndex];
+  }, 500); // change every 1
+</script>
 
 
 </body>
