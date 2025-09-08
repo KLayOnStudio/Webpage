@@ -1,14 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  
   <meta charset="UTF-8">
   <title>KLAYON</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    .center-logo {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1; /* Adjust as needed depending on orbit items */
+      pointer-events: none; /* So buttons orbiting can still be clicked */
+      opacity:0.7
+    }
+
+    .center-logo img {
+      width: 50vmin;
+      height: auto;
+      opacity: 1;
+    }
+
+
+
     body {
       margin: 0;
       padding: 0;
-      font-family: sans-serif;
+      font-family: 'Pixelify Sans', sans-serif;
       background-color: #f5f5f5;
       color: #0c0c0c;
       display: flex;
@@ -51,19 +73,23 @@
     }
 
     button {
-      padding: 12px 24px;
-      background-color: #a4e1b8;
+      padding: 4px 10px;
+      background-color: transparent;
       border: none;
-      color: #ffffff;
+      color: #000000;
       font-weight: bold;
-      font-size: 1em;
+      font-size: 1.5em;
       cursor: pointer;
       border-radius: 8px; /* ← adds smooth curves */
+      font-family: 'Silkscreen', sans-serif;
     }
-
     button:hover {
-      background-color: #9774dd;
+      background-color: transparent;
+      border: 1px dashed #0c0c0c;
     }
+    /* button:hover {
+      background-color: #9774dd;
+    } */
     .lookbook-section {
       display: flex;
       flex-direction: column;
@@ -82,45 +108,256 @@
     .lookbook-thumb:hover {
       transform: scale(1.03);
     }
+    .background-logo {
+      position: fixed;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -40%);
+      z-index: 1;
+      opacity: 1;
+      pointer-events: none;
+      width: 150vmin; 
+      aspect-ratio: 1/1;
+      background-image: url('logo_loop.gif');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+
+    #project-orbit-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none; /* we will turn on/off per unit */
+    }
+
+    .project-orbit {
+      --radius: 160px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform:
+        rotate(var(--angle, 0deg))
+        translate(var(--radius))
+        rotate(calc(var(--angle, 0deg) * -1)); /* keep upright */
+      transform-origin: center;
+      transition: transform 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
+    .project-orbit img {
+      width: 120px;
+      height: auto;
+      border-radius: 12px;
+      margin-bottom: 8px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .project-orbit button {
+      font-family: 'Pixelify Sans', system-ui;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: background 0.2s ease;
+    }
+
+    .project-orbit:hover img {
+      transform: scale(1.08);
+    }
+
+    .project-unit {
+      position: absolute;
+      top: var(--y);
+      left: var(--x);
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: auto;
+    }
+
+
+
+    /* This keeps the button fixed in place */
+    .project-unit .project-btn {
+      z-index: 1;
+    }
+
+    /* The preview floats below the button and is hidden by default */
+    .project-unit .preview {
+      position: absolute;
+      top: 100%; /* places it just below the button */
+      left: 50%;
+      transform: translateX(-50%) translateY(-12px); /* slide upward initially */
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    /* When active, fade and slide down into place */
+    .project-unit.active .preview {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+      pointer-events: auto;
+    }
+
+    /* Preview image styling */
+    .project-unit .preview img {
+      width: 20vmin;
+      max-width: 90vw;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+      transition: opacity 0.3s ease;
+    }
+    .orbit-center {
+      position: fixed;
+      top: var(--cy);
+      left: var(--cx);
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .project-unit.orbiting {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotate(var(--start-angle, 0deg)) translateX(var(--radius, 100px)) rotate(calc(-1 * var(--start-angle, 0deg)));
+      transform-origin: center;
+      animation: orbit-spin 20s linear infinite;
+    }
+
+    @keyframes orbit-spin {
+      from {
+        transform: rotate(var(--start-angle, 0deg)) translateX(var(--radius, 100px)) rotate(calc(-1 * var(--start-angle, 0deg)));
+      }
+      to {
+        transform: rotate(calc(var(--start-angle, 0deg) + 360deg)) translateX(var(--radius, 100px)) rotate(calc(-1 * (var(--start-angle, 0deg) + 360deg)));
+      }
+    }
+
+
 
   </style>
 </head>
+
+<header class="center-logo">
+  <img class="logo-text" src="Full_logo.png" alt="Klayon Studio logo">
+</header>
+
+
 <body>
-  <img id="gif" src="logo_full.gif" alt="Intro Animation" />
+  <!-- <img id="gif" src="logo_full.gif" alt="Intro Animation" /> -->
+  <div class="background-logo"></div>
 
-  <script>
-    const duration = 18000; // Adjust if needed
-    setTimeout(() => {
-      const gif = document.getElementById('gif');
-      gif.src = "logo_loop.gif";
-    }, duration);
-  </script>
+<main>
 
 
+  <div class="orbit-center" style="--cx: 65vw; --cy: 70vh;">
+    <div class="project-unit orbiting"
+        style="--radius: 20vmin; --start-angle: 90deg;"
+        data-link="team_bio.html"">
+      <button class="btn project-btn" type="button">Team</button>
 
+      <div class="preview">
+        <img
+          src="Team/lae_kim_portrait_pixel.png"
+          alt="Team preview"
+          data-srcs="Team/lae_kim_portrait_pixel.png,Team/shawn_bgWhite.png"
+        >
+      </div>
 
-  <!-- Signup button -->
-  <div class="buttons">
-    <button onclick="window.location.href='signup.html'">Join the Suburi Project</button>
+    </div>
   </div>
-  <!-- Wireframe thumbnail + button -->
-  <div class="wireframe-section">
-    <a href="https://www.figma.com/proto/95LKDoH1jq2H8SJlAxOElE/suburiApp?node-id=0-1&t=MGK0Ht6D1PWg6A7V-1" target="_blank">
-      <img class="wireframe-thumb" src="DojoGoStartPage.png" alt="Figma Wireframe Thumbnail">
-    </a>
-    <a href="https://www.figma.com/proto/95LKDoH1jq2H8SJlAxOElE/suburiApp?node-id=0-1&t=MGK0Ht6D1PWg6A7V-1" target="_blank">
-      <button>View App Wireframe</button>
-    </a>
+
+  <div class="orbit-center" style="--cx: 65vw; --cy: 70vh;">
+    <div class="project-unit orbiting"
+        style="--radius: 10vmin; --start-angle: 315deg;"
+        data-link="kikentailookbook.html">
+
+      <button class="btn project-btn" type="button">Kikentai</button>
+
+      <div class="preview">
+        <img src="Kikentai/Basuquiat1.JPEG" alt="Kikentai Lookbook" data-srcs="
+          Kikentai/Basuquiat2.JPEG,
+          Kikentai/Basuquiat3.JPEG,
+          Kikentai/Basuquiat4.JPEG,
+          Kikentai/ShinaiBack1.JPEG,
+          Kikentai/ShinaiBack2.JPEG,
+          Kikentai/skullhoodie1.JPEG,
+          Kikentai/skullhoodie2.JPEG,
+          Kikentai/skullhoodie3.JPEG
+        ">
+      </div>
+    </div>
   </div>
-<!-- Lookbook thumbnail + button -->
-<div class="lookbook-section" style="margin-top: 60px;">
-  <a href="kikentailookbook.html" target="_blank">
-    <img id="lookbook-thumb" class="lookbook-thumb" src="Kikentai/skullhoodie2.JPEG" alt="Kikentai Lookbook Thumbnail" />
-  </a>
-  <a href="kikentailookbook.html" target="_blank">
-    <button> 着剣体</button>
-  </a>
-</div>
+
+  <div class="orbit-center" style="--cx: 15vw; --cy: 20vh;">
+    <div class="project-unit orbiting"
+        style="--radius: 8vmin; --start-angle: 45deg;"
+        data-link="https://www.figma.com/proto/95LKDoH1jq2H8SJlAxOElE/suburiApp?node-id=2-2&t=0OkCxMFssfYlHqw2-1&starting-point-node-id=2%3A2">
+
+      <button class="btn project-btn" type="button">DojoGo</button>
+
+      <div class="preview">
+        <img
+          src="DojoGo/DojoGoStartPage.png"
+          alt="DojoGo preview"
+          data-srcs="Dojogo/Wireframe_Swing.png,Dojogo/Wireframe_TimeSeries.png,Dojogo/Wireframe_Sensei.png,Dojogo/Wireframe_Leaderboard.png,Dojogo/Wireframe_Network.png,Dojogo/Wireframe_SimilarityMatrix.png,Dojogo/Wireframe_Advice.png"
+        >
+      </div>
+
+    </div>
+  </div>
+
+  <div class="orbit-center" style="--cx: 15vw; --cy: 20vh;">
+    <div class="project-unit orbiting"
+        style="--radius: 20vmin; --start-angle: 90deg;"
+        data-link="signup.html"">
+      <button class="btn project-btn" type="button">Suburi Project</button>
+
+      <div class="preview">
+        <img
+          src="suburi.png"
+          alt="Suburi preview"
+          data-srcs="suburi.png"
+        >
+      </div>
+
+    </div>
+  </div>
+
+    <!-- <div class="project-unit" style="--x: 65vw; --y: 50vh;">
+      <button class="btn project-btn" type="button" data-id="dojogo">DojoGo</button>
+      <img class="preview" src="assets/projects/dojogo.jpg" alt="DojoGo preview">
+    </div>
+  </div> -->
+
+
+</main>
+
+
+
+
+<script>
+document.querySelectorAll('.project-orbit').forEach(el => {
+  const angle = parseFloat(el.dataset.angle || 0);
+  el.style.setProperty('--angle', `${angle}deg`);
+});
+</script>
 
 
 <script>
@@ -146,6 +383,82 @@
   }, 500); // change every 1
 </script>
 
+<script>
+  const previewTimers = new Map();
+
+  document.querySelectorAll('.project-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const unit = btn.closest('.project-unit');
+      const preview = unit.querySelector('.preview');
+      const img = preview.querySelector('img');
+
+      const imgList = img.dataset.srcs?.split(',').map(s => s.trim()) || [img.src];
+      let cycleIndex = 0;
+
+      // If this unit is already active, toggle it off
+      const isActive = unit.classList.contains('active');
+      if (isActive) {
+        unit.classList.remove('active');
+        clearInterval(previewTimers.get(unit));
+        previewTimers.delete(unit);
+        return;
+      }
+
+      // Otherwise, activate this unit
+      unit.classList.add('active');
+
+      // Reset and start image cycling
+      if (previewTimers.has(unit)) {
+        clearInterval(previewTimers.get(unit));
+        previewTimers.delete(unit);
+      }
+
+      if (imgList.length > 1) {
+        const timerId = setInterval(() => {
+          cycleIndex = (cycleIndex + 1) % imgList.length;
+          img.src = imgList[cycleIndex];
+        }, 500); // 1.5 sec per image
+
+        previewTimers.set(unit, timerId);
+      }
+
+      // Auto-close after 5 seconds
+      setTimeout(() => {
+        if (unit.classList.contains('active')) {
+          unit.classList.remove('active');
+          if (previewTimers.has(unit)) {
+            clearInterval(previewTimers.get(unit));
+            previewTimers.delete(unit);
+          }
+        }
+      }, 4000);
+    });
+  });
+
+  // Clicking preview image opens link
+  document.addEventListener('click', e => {
+    const img = e.target.closest('.preview img');
+    if (img) {
+      const unit = img.closest('.project-unit');
+      const url = unit?.dataset?.link;
+      if (url) window.open(url, '_blank');
+    }
+
+    // Close others if clicked outside
+    if (!e.target.closest('.project-unit')) {
+      document.querySelectorAll('.project-unit').forEach(unit => {
+        unit.classList.remove('active');
+        if (previewTimers.has(unit)) {
+          clearInterval(previewTimers.get(unit));
+          previewTimers.delete(unit);
+        }
+      });
+    }
+  });
+</script>
+
 
 </body>
+
+
 </html>
