@@ -310,7 +310,7 @@
         style="--radius: 8vmin; --start-angle: 45deg;"
         data-link="https://www.figma.com/proto/95LKDoH1jq2H8SJlAxOElE/suburiApp?node-id=2-2&t=0OkCxMFssfYlHqw2-1&starting-point-node-id=2%3A2">
 
-      <button class="btn project-btn" type="button">DojoGo</button>
+      <button class="btn project-btn" type="button">DojoGo!</button>
 
       <div class="preview">
         <img
@@ -352,6 +352,27 @@
     </div>
   </div> -->
 
+
+  <div class="orbit-center" style="--cx: 50vw; --cy: 50vh;">
+  <div id="portal-unit" class="project-unit orbiting"
+      style="--radius: 15vmin; --start-angle: 200deg;"
+      data-link="https://docs.google.com/spreadsheets/d/1PpVghpC4Zv3ro44ec-VH-nG5pQURudwMXWK83hr_oAc/edit?usp=sharing">
+
+    <button class="btn project-btn" type="button">Portal</button>
+
+    <div class="preview">
+      <input type="password" id="portal-code" placeholder="Enter code"
+             style="padding:6px; font-size:14px; border-radius:6px; border:1px solid #ccc; width:140px; text-align:center;">
+      <button onclick="checkPortalCode()" 
+              style="margin-top:8px; font-size:14px; padding:4px 10px; border-radius:6px; cursor:pointer;">
+        Enter
+      </button>
+    </div>
+
+  </div>
+</div>
+
+  
 
 </main>
 
@@ -396,72 +417,71 @@ document.querySelectorAll('.project-orbit').forEach(el => {
     btn.addEventListener('click', () => {
       const unit = btn.closest('.project-unit');
       const preview = unit.querySelector('.preview');
-      const img = preview.querySelector('img');
-
-      const imgList = img.dataset.srcs?.split(',').map(s => s.trim()) || [img.src];
-      let cycleIndex = 0;
+      const img = preview.querySelector('img'); // might be null for Portal
 
       // If this unit is already active, toggle it off
       const isActive = unit.classList.contains('active');
       if (isActive) {
         unit.classList.remove('active');
-        clearInterval(previewTimers.get(unit));
-        previewTimers.delete(unit);
+        if (previewTimers.has(unit)) {
+          clearInterval(previewTimers.get(unit));
+          previewTimers.delete(unit);
+        }
         return;
       }
 
       // Otherwise, activate this unit
       unit.classList.add('active');
 
-      // Reset and start image cycling
-      if (previewTimers.has(unit)) {
-        clearInterval(previewTimers.get(unit));
-        previewTimers.delete(unit);
-      }
+      if (img) {
+        const imgList = img.dataset.srcs?.split(',').map(s => s.trim()) || [img.src];
+        let cycleIndex = 0;
 
-      if (imgList.length > 1) {
-        const timerId = setInterval(() => {
-          cycleIndex = (cycleIndex + 1) % imgList.length;
-          img.src = imgList[cycleIndex];
-        }, 500); // 1.5 sec per image
-
-        previewTimers.set(unit, timerId);
-      }
-
-      // Auto-close after 5 seconds
-      setTimeout(() => {
-        if (unit.classList.contains('active')) {
-          unit.classList.remove('active');
-          if (previewTimers.has(unit)) {
-            clearInterval(previewTimers.get(unit));
-            previewTimers.delete(unit);
-          }
-        }
-      }, 4000);
-    });
-  });
-
-  // Clicking preview image opens link
-  document.addEventListener('click', e => {
-    const img = e.target.closest('.preview img');
-    if (img) {
-      const unit = img.closest('.project-unit');
-      const url = unit?.dataset?.link;
-      if (url) window.open(url, '_blank');
-    }
-
-    // Close others if clicked outside
-    if (!e.target.closest('.project-unit')) {
-      document.querySelectorAll('.project-unit').forEach(unit => {
-        unit.classList.remove('active');
+        // Reset and start image cycling
         if (previewTimers.has(unit)) {
           clearInterval(previewTimers.get(unit));
           previewTimers.delete(unit);
         }
-      });
-    }
+
+        if (imgList.length > 1) {
+          const timerId = setInterval(() => {
+            cycleIndex = (cycleIndex + 1) % imgList.length;
+            img.src = imgList[cycleIndex];
+          }, 1500); // 1.5 sec per image
+          previewTimers.set(unit, timerId);
+        }
+
+        // Auto-close after 5 seconds
+        setTimeout(() => {
+          if (unit.classList.contains('active')) {
+            unit.classList.remove('active');
+            if (previewTimers.has(unit)) {
+              clearInterval(previewTimers.get(unit));
+              previewTimers.delete(unit);
+            }
+          }
+        }, 4000);
+      }
+    });
   });
 </script>
+
+
+<script>
+function checkPortalCode() {
+  const input = document.getElementById("portal-code").value;
+  const secret = "Zmfodyd0"; // change this to your actual code
+
+  if (input === secret) {
+    const portalUnit = document.getElementById("portal-unit");
+    const url = portalUnit.getAttribute("data-link");
+    window.open(url, "_blank");
+  } else {
+    alert("Invalid code. Please try again.");
+  }
+}
+</script>
+
 
 
 </body>
