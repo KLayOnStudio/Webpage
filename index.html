@@ -417,7 +417,7 @@ document.querySelectorAll('.project-orbit').forEach(el => {
     btn.addEventListener('click', () => {
       const unit = btn.closest('.project-unit');
       const preview = unit.querySelector('.preview');
-      const img = preview.querySelector('img'); // might be null for Portal
+      const img = preview.querySelector('img'); // might be null (Portal)
 
       // If this unit is already active, toggle it off
       const isActive = unit.classList.contains('active');
@@ -464,7 +464,30 @@ document.querySelectorAll('.project-orbit').forEach(el => {
       }
     });
   });
+
+  // Handle clicks on preview images and outside
+  document.addEventListener('click', e => {
+    // Clicking a preview image opens its link
+    const img = e.target.closest('.preview img');
+    if (img) {
+      const unit = img.closest('.project-unit');
+      const url = unit?.dataset?.link;
+      if (url) window.open(url, '_blank');
+    }
+
+    // Clicking outside closes all previews
+    if (!e.target.closest('.project-unit')) {
+      document.querySelectorAll('.project-unit').forEach(unit => {
+        unit.classList.remove('active');
+        if (previewTimers.has(unit)) {
+          clearInterval(previewTimers.get(unit));
+          previewTimers.delete(unit);
+        }
+      });
+    }
+  });
 </script>
+
 
 
 <script>
