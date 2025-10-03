@@ -241,6 +241,19 @@
       animation: orbit-spin 20s linear infinite;
     }
 
+    .project-unit.social-icon img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .project-unit.social-icon img:hover {
+      transform: scale(1.15);
+    }
+
     @keyframes orbit-spin {
       from {
         transform: rotate(var(--start-angle, 0deg)) translateX(var(--radius, 100px)) rotate(calc(-1 * var(--start-angle, 0deg)));
@@ -281,6 +294,28 @@
         >
       </div>
 
+    </div>
+  </div>
+
+  <div class="orbit-center" style="--cx: 30vw; --cy: 30vh;">
+    <div class="project-unit orbiting social-icon"
+        style="--radius: 18vmin; --start-angle: 250deg;"
+        data-link="https://threads.net/dojogo_0">
+
+      <img 
+        class="project-btn"
+        src="icons/threads-app-icon.png" 
+        alt="Threads"
+        data-srcs="icons/kendoPixelProfile.PNG"
+      >
+      <div class="preview">
+        <img 
+          src="icons/kendoPixelProfile.PNG" 
+          alt="Socials"
+          data-srcs="icons/kendoPixelProfile.PNG"
+          style="width:80px; height:80px; border-radius:50%;"
+        >
+      </div>
     </div>
   </div>
 
